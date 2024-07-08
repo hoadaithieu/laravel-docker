@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\V1;
 
 use App\Classes\ApiResponseHelper;
 use App\Http\Controllers\Controller;
@@ -33,7 +33,7 @@ class StudentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/students",
+     *     path="/api/v1/students",
      *     tags={"Students"},
      *     summary="Get list of students",
      *     description="Return list of students",
@@ -55,7 +55,7 @@ class StudentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/students/{id}",
+     *     path="/api/v1/students/{id}",
      *     tags={"Students"},
      *     summary="Get student information",
      *     description="Get student details by ID",
@@ -80,7 +80,7 @@ class StudentController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/students",
+     *     path="/api/v1/students",
      *     tags={"Students"},
      *     summary="Create new student",
      *     description="Create a new student record",
@@ -119,7 +119,7 @@ class StudentController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/students/{id}",
+     *     path="/api/v1/students/{id}",
      *     tags={"Students"},
      *     summary="Update student information",
      *     description="Update student record by ID",
@@ -163,7 +163,7 @@ class StudentController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/students/{id}",
+     *     path="/api/v1/students/{id}",
      *     tags={"Students"},
      *     summary="Delete student record",
      *     description="Delete student by ID",

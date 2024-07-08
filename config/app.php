@@ -130,5 +130,6 @@ return [
     'providers' => ServiceProvider::defaultProviders()->merge([
         App\Providers\RouteServiceProvider::class,
         App\Providers\DynamoDBServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
     ])->toArray(),
 ];

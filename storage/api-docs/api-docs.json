@@ -11,14 +11,433 @@
         }
     ],
     "paths": {
-        "/api/students": {
+        "/api/v1/issues/table": {
+            "post": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Create issue table structure",
+                "description": "Return list of issues",
+                "operationId": "4c728fc0c0a67e6c32bbb0abee3fdb5e",
+                "responses": {
+                    "200": {
+                        "description": "Succesful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/IssueResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/issues": {
+            "get": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Get list of issues",
+                "description": "Return list of issues",
+                "operationId": "11a7f564fd4f47eae59de57da89f5336",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Issue Id",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "A-101"
+                        }
+                    },
+                    {
+                        "name": "create_date",
+                        "in": "query",
+                        "description": "Issue Create Date",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "2014-11-19"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/IssueResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Create new issue",
+                "description": "Create a new issue record",
+                "operationId": "4f61806b1a4ad48c588682be6540ba88",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "title"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "example": "A-101"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Network issue"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Can't ping IP address 127.0.0.1. Please fix this."
+                                    },
+                                    "create_date": {
+                                        "type": "string",
+                                        "example": "2014-11-19"
+                                    },
+                                    "due_date": {
+                                        "type": "string",
+                                        "example": "2014-11-19"
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Assigned"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Record created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IssueResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/issues/{id}": {
+            "get": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Get issue information",
+                "description": "Get issue details by ID (A-101)",
+                "operationId": "5e4dd5f0616f34f05c121a0f51315ca5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "A-101"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IssueResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Update issue information",
+                "description": "Update issue record by ID",
+                "operationId": "f43e683e3312f1d4520702ac9d1e1147",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "A-101"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Compilation error"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Can't compile Project X - bad version number. What does this mean?"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Record updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IssueResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Delete issue record",
+                "description": "Delete issue by ID",
+                "operationId": "6aca2f274d9ec5aa14d76a823f890225",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Record deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/v1/issues/sample": {
+            "post": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Create sample Issue",
+                "description": "Create a new issue record",
+                "operationId": "77f839482e672a714762a3e9f27a8851",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "title"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "example": "A-101"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Network issue"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Can't ping IP address 127.0.0.1. Please fix this."
+                                    },
+                                    "create_date": {
+                                        "type": "string",
+                                        "example": "2014-11-19"
+                                    },
+                                    "due_date": {
+                                        "type": "string",
+                                        "example": "2014-11-19"
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "Assigned"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Record created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IssueResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/issues/{id}/table": {
+            "delete": {
+                "tags": [
+                    "Issues"
+                ],
+                "summary": "Delete issue table",
+                "description": "Delete issue by ID",
+                "operationId": "b06a3398ff6fde838db84e9d5c45d6e3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Record deleted successfully"
+                    }
+                }
+            }
+        },
+        "/api/v1/media": {
+            "post": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "Upload a file",
+                "operationId": "uploadFile",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "description": "File to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "File uploaded successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "example": "uploads/filename.jpg"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/v1/students": {
             "get": {
                 "tags": [
                     "Students"
                 ],
                 "summary": "Get list of students",
                 "description": "Return list of students",
-                "operationId": "9f38d78e23663d865906d1918f55573b",
+                "operationId": "5d07425635be0b94444ea71fb342e508",
                 "responses": {
                     "200": {
                         "description": "Succesful operation",
@@ -41,7 +460,7 @@
                 ],
                 "summary": "Create new student",
                 "description": "Create a new student record",
-                "operationId": "90fecdc9e9ba90ffdb38f654a2bbd711",
+                "operationId": "9e941b600cc1bf0315567c50a75b5a90",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -80,14 +499,14 @@
                 }
             }
         },
-        "/api/students/{id}": {
+        "/api/v1/students/{id}": {
             "get": {
                 "tags": [
                     "Students"
                 ],
                 "summary": "Get student information",
                 "description": "Get student details by ID",
-                "operationId": "9e2f1ea9240129a6c583dcc0080808cb",
+                "operationId": "8570e06bdd87424006e91049d933c46e",
                 "parameters": [
                     {
                         "name": "id",
@@ -117,7 +536,7 @@
                 ],
                 "summary": "Update student information",
                 "description": "Update student record by ID",
-                "operationId": "02b72a59111740170d15f3277ed47672",
+                "operationId": "3e41bb78fc66c1e6b7c4607a0f1adf8e",
                 "parameters": [
                     {
                         "name": "id",
@@ -171,185 +590,7 @@
                 ],
                 "summary": "Delete student record",
                 "description": "Delete student by ID",
-                "operationId": "46c88fa88727635601e96354e11e489c",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Record deleted successfully"
-                    }
-                }
-            }
-        },
-        "/api/v1/issues": {
-            "get": {
-                "tags": [
-                    "Issues"
-                ],
-                "summary": "Get list of issues",
-                "description": "Return list of issues",
-                "operationId": "11a7f564fd4f47eae59de57da89f5336",
-                "responses": {
-                    "200": {
-                        "description": "Succesful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/StudentResource"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Issues"
-                ],
-                "summary": "Create new issue",
-                "description": "Create a new issue record",
-                "operationId": "4f61806b1a4ad48c588682be6540ba88",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "age"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "John Doe"
-                                    },
-                                    "age": {
-                                        "type": "integer",
-                                        "example": 20
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Record created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/IssueResource"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/issues/{id}": {
-            "get": {
-                "tags": [
-                    "Issues"
-                ],
-                "summary": "Get issue information",
-                "description": "Get issue details by ID",
-                "operationId": "5e4dd5f0616f34f05c121a0f51315ca5",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/IssueResource"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Issues"
-                ],
-                "summary": "Update issue information",
-                "description": "Update issue record by ID",
-                "operationId": "f43e683e3312f1d4520702ac9d1e1147",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "age"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "John Doe"
-                                    },
-                                    "age": {
-                                        "type": "integer",
-                                        "example": 20
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Record updated successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/IssueResource"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Issues"
-                ],
-                "summary": "Delete issue record",
-                "description": "Delete issue by ID",
-                "operationId": "6aca2f274d9ec5aa14d76a823f890225",
+                "operationId": "f1d4055de4140ba7d98caa65b0a8a927",
                 "parameters": [
                     {
                         "name": "id",
@@ -373,16 +614,73 @@
             "IssueResource": {
                 "properties": {
                     "id": {
-                        "description": "Id of the student",
+                        "description": "Id of the Issue",
                         "type": "integer"
                     },
-                    "name": {
-                        "description": "Name of the student",
+                    "title": {
+                        "description": "Title",
                         "type": "string"
                     },
-                    "age": {
-                        "description": "Age of the student",
+                    "description": {
+                        "description": "Description",
+                        "type": "string"
+                    },
+                    "create_date": {
+                        "description": "Create date",
+                        "type": "string"
+                    },
+                    "last_update_date": {
+                        "description": "Last update date",
+                        "type": "string"
+                    },
+                    "due_date": {
+                        "description": "Due date",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "description": "Priority",
                         "type": "integer"
+                    },
+                    "status": {
+                        "description": "Status",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "MediaResource": {
+                "properties": {
+                    "id": {
+                        "description": "Id of the Issue",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "Title",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description",
+                        "type": "string"
+                    },
+                    "create_date": {
+                        "description": "Create date",
+                        "type": "string"
+                    },
+                    "last_update_date": {
+                        "description": "Last update date",
+                        "type": "string"
+                    },
+                    "due_date": {
+                        "description": "Due date",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "description": "Priority",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "Status",
+                        "type": "string"
                     }
                 },
                 "type": "object"

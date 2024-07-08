@@ -5,11 +5,11 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IssueResource extends JsonResource
+class MediaResource extends JsonResource
 {
     /**
      * @OA\Schema(
-     *     schema="IssueResource",
+     *     schema="MediaResource",
      *     type="object",
      *     @OA\Property(
      *         property="id",
@@ -43,7 +43,7 @@ class IssueResource extends JsonResource
      *     ),
      * *   @OA\Property(
      *         property="priority",
-     *         type="integer",
+     *         type="string",
      *         description="Priority"
      *     ),
      * *   @OA\Property(
@@ -63,17 +63,5 @@ class IssueResource extends JsonResource
             'status' => $this->status,
         ];
 
-        /*
-    return [
-    'id' => $this->id,
-    'title' => $this->title,
-    'description' => $this->description,
-    'create_date' => $this->create_date,
-    'last_update_date' => $this->last_update_date,
-    'due_date' => $this->due_date,
-    'priority' => $this->priority,
-    'status' => $this->status,
-    ];
-     */
     }
 }
