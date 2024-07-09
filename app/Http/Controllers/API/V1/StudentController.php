@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\DB;
  * @OA\Info(
  *      title="API Swagger",
  *      version="1.0",
- *      description="API CRUD Students"
+ *      description="API CRUD Demo"
  * )
  *
  * @OA\Server(url="http://localhost:8000")
+ * @OA\Server(url="http://localhost:8001")
  */
 
 class StudentController extends Controller

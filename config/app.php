@@ -1,5 +1,4 @@
 <?php
-use Illuminate\Support\ServiceProvider;
 
 return [
 
@@ -127,9 +126,11 @@ return [
     //'providers' => [
     //App\Providers\DynamoDBServiceProvider::class,
     //],
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\DynamoDBServiceProvider::class,
-        App\Providers\RepositoryServiceProvider::class,
-    ])->toArray(),
+    /*
+'providers' => ServiceProvider::defaultProviders()->merge([
+App\Providers\RouteServiceProvider::class,
+App\Providers\DynamoDBServiceProvider::class,
+App\Providers\RepositoryServiceProvider::class,
+])->toArray(),
+ */
 ];
